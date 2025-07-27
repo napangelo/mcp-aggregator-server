@@ -1,0 +1,9 @@
+{
+  "tools": [
+    {
+      "name": "quote_finder",
+      "description": "Find a motivational quote about technology.",
+      "endpoint": "http://localhost:3000/tools/quote_finder"
+    }
+  ]
+}

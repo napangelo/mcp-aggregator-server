@@ -1,0 +1,9 @@
+{
+  "tools": [
+    {
+      "name": "joke_generator",
+      "description": "Generate a random programming joke.",
+      "endpoint": "http://localhost:3000/tools/joke_generator"
+    }
+  ]
+}
