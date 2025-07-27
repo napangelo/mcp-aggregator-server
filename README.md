@@ -41,14 +41,21 @@ Quando avvii il server, verranno letti i due manifest e i tool contenuti verrann
 
 Mock disponibili:
 
-- `mock-mcp1`: tool `joke_generator`
-- `mock-mcp2`: tool `quote_finder`
+- `mcp1`: tool `joke_generator`
+- `mcp2`: tool `quote_finder`
 
 Puoi testare la ricerca con:
 
 ```
 GET http://localhost:3000/tools/mcp_aggregator?search=programming
 ```
+
+Puoi resettare indice con:
+
+```
+GET http://localhost:3000/tools/reset_index
+```
+
 
 ---
 
