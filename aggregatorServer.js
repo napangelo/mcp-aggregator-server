@@ -13,9 +13,10 @@ const port = process.env.PORT || 3000;
 const MCP_SERVERS = (process.env.MCP_SERVERS || '').split(',');
 const vectorDB = new ToolVectorDB();
 
+
 // ✅ Serve le cartelle mock
-app.use('/mock-mcp1', express.static('mock-mcp1'));
-app.use('/mock-mcp2', express.static('mock-mcp2'));
+app.use('/mock-mcps', express.static('mock-mcps'));
+
 
 
 app.get('/tools/mcp_aggregator', async (req, res) => {
@@ -47,9 +48,14 @@ app.get('/tools/mcp_aggregator', async (req, res) => {
     res.json({ matches: output });
 });
 
+app.get('/tools/reset_index', async (req, res) => {
+    const results = await vectorDB.resetIndex();
+    res.json({ result: true, message: 'Index reset successfully', details: results });
+});
+
 app.listen(port, async () => {
-    // Aspetta l'inizializzazione della vector DB
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    // Attendi l'inizializzazione PRIMA di usarlo
+    await vectorDB.init();
 
     for (const serverUrl of MCP_SERVERS) {
         try {

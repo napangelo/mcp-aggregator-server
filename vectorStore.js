@@ -9,15 +9,14 @@ class ToolVectorDB {
     constructor() {
         this.indexName = process.env.PINECONE_INDEX_NAME || 'mcp-tools';
         this.client = new Pinecone({
-            apiKey: process.env.PINECONE_API_KEY,
-            //environment: process.env.PINECONE_ENVIRONMENT,
+        apiKey: process.env.PINECONE_API_KEY,
+        //environment: process.env.PINECONE_ENVIRONMENT,
         });
 
-        this.index = this.client.Index(this.indexName);
+        this.index = null;
         this.embedder = null;
-
-        this.init();
     }
+
 
     async init() {
         const rawIndexes = await this.client.listIndexes();
@@ -42,7 +41,7 @@ class ToolVectorDB {
         }
 
         this.index = this.client.Index(this.indexName);
-        //await this.index.deleteAll();
+       
         this.embedder = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
 
     }
@@ -51,6 +50,10 @@ class ToolVectorDB {
     async encode(text) {
         const result = await this.embedder(text, { pooling: 'mean', normalize: true });
         return Array.from(result.data);
+    }
+
+    async resetIndex() {
+        await this.index.deleteAll();
     }
 
     async addTool(name, description, endpoint) {
@@ -66,6 +69,7 @@ class ToolVectorDB {
         ]);
     }
 
+    
     _generateIdFrom(value) {
         return crypto.createHash('sha1').update(value).digest('hex');
     }

@@ -16,7 +16,7 @@ npm install
 
 ```env
 PORT=3000
-MCP_SERVERS=http://localhost:3000/mock-mcp1,http://localhost:3000/mock-mcp2
+MCP_SERVERS=http://localhost:3000/mock-mcps/mcp1,http://localhost:3000/mock-mcps/mcp2
 
 PINECONE_API_KEY=la-tua-api-key
 PINECONE_ENVIRONMENT=us-east-1
@@ -33,7 +33,7 @@ node aggregatorServer.js
 
 ## 🧪 Uso dei mock
 
-Il progetto include due server MCP simulati (`mock-mcp1` e `mock-mcp2`) con manifest `.well-known/ai-plugin.json`.
+Il progetto include due server MCP simulati (`mock-mcps/mcp1` e `mock-mcps/mcp2`) con manifest `.well-known/ai-plugin.json`.
 
 Questi file vengono serviti localmente da Express, quindi non è necessario avere server esterni attivi.
 
